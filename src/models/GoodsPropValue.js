@@ -41,4 +41,28 @@ export default class GoodsPropValue extends service.Model {
       this.createdAt = new Date;
     }
   }
+
+  postSave() {
+    this.processProp();
+  }
+
+  postRemove() {
+    this.processProp();
+  }
+
+  /**
+   * [async] 整理相应属性的属性值
+   */
+  async processProp() {
+    let prop = await GoodsProp.findById(this.prop);
+    if (!prop) {
+      return;
+    }
+    let values = await GoodsPropValue.find({
+      prop: prop._id
+    });
+    prop.values = values.map(v => v._id);
+    await prop.save();
+  }
+
 }
