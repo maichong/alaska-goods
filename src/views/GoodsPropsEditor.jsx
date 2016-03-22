@@ -107,6 +107,7 @@ export default class GoodsPropsEditor extends React.Component {
           id: p.id,
           title: p.title,
           sku: p.sku,
+          filter: p.filter,
           values: []
         };
       }

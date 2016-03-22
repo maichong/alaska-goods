@@ -12,7 +12,7 @@ import _ from 'lodash';
 export default class GoodsProp extends service.Model {
 
   static label = '商品属性';
-  static defaultColumns = 'title,sort,activated,createdAt';
+  static defaultColumns = 'title,required,multi,sku,filter,input,activated,sort,createdAt';
   static defaultSort = '-sort';
   static searchFields = 'title';
   static population = [{
@@ -43,23 +43,23 @@ export default class GoodsProp extends service.Model {
       private: true
     },
     required: {
-      label: '必选属性',
+      label: '必选',
       type: Boolean
     },
     multi: {
-      label: '多选属性',
-      type: Boolean
-    },
-    input: {
-      label: '输入属性',
+      label: '多选',
       type: Boolean
     },
     sku: {
-      label: 'SKU属性',
+      label: 'SKU',
       type: Boolean
     },
     filter: {
-      label: '检索属性',
+      label: '检索',
+      type: Boolean
+    },
+    input: {
+      label: '可输入',
       type: Boolean
     },
     sort: {

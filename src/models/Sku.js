@@ -32,7 +32,7 @@ export default class Sku extends service.Model {
       label: '折扣价',
       type: Number,
       default: 0,
-      note: '为0则表示不打折'
+      help: '为0则表示不打折'
     },
     inventory: {
       label: '库存',
