@@ -9,7 +9,8 @@
 import alaska from 'alaska';
 
 export const views = {
-  GoodsPropsEditor: __dirname + '/views/GoodsPropsEditor'
+  GoodsPropsEditor: __dirname + '/views/GoodsPropsEditor',
+  GoodsSkuEditor: __dirname + '/views/GoodsSkuEditor',
 };
 
 

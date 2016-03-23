@@ -23,6 +23,10 @@ export default class Goods extends service.Model {
     price: '价格',
     inventory: '库存',
     props: '属性',
+    sku: {
+      title: 'SKU',
+      panel: false
+    },
     desc: '详情',
   };
 
@@ -116,6 +120,11 @@ export default class Goods extends service.Model {
       label: '属性值',
       type: ['GoodsPropValue'],
       hidden: true
+    },
+    sku: {
+      type: Object,
+      view: 'GoodsSkuEditor',
+      group: 'sku'
     },
     createdAt: {
       label: '添加时间',
