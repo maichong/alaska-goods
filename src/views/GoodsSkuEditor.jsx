@@ -20,19 +20,19 @@ import _ from 'lodash';
 function updateValue(value, goodsProps, goodsPropsMap) {
   value = value || [];
   let skuProps = [];
-  goodsProps.forEach(prop => {
+  _.forEach(goodsProps, prop => {
     if (prop.sku) {
       skuProps.push(prop);
     }
   });
-  if (!skuProps.length) {
-    return value;
-  }
 
   function create(index, req) {
     let res = [];
     let prop = skuProps[index];
     if (!index) {
+      if (!skuProps.length) {
+        return [];
+      }
       _.forEach(prop.values, v=> {
         res.push({
           props: {
@@ -107,10 +107,10 @@ function updateValue(value, goodsProps, goodsPropsMap) {
 
 function createPropsMap(props) {
   let map = {};
-  props.forEach(p=> {
+  _.forEach(props, p=> {
     let item = _.assign({}, p);
     item.valueMap = {};
-    p.values.forEach(v=> {
+    _.forEach(p.values, v=> {
       item.valueMap[v.value] = v;
     });
     map[item.id] = item;
@@ -155,74 +155,81 @@ export default class GoodsSkuEditor extends React.Component {
   render() {
     //let { value } = this.props;
     let { value } = this.state;
-    let trs = [];
-    let me = this;
-    let trCache = me._trCache;
 
-    value.forEach((s, index) => {
-      if (trCache[s.key]) {
-        trs.push(trCache[s.key]);
-        return;
-      }
-      function onChangeInventory(e) {
-        s.inventory = parseInt(e.target.value);
-        delete trCache[s.key];
-        me.props.onChange(value.slice());
-      }
-
-      function onChangePrice(e) {
-        s.price = parseFloat(e.target.value);
-        delete trCache[s.key];
-        me.props.onChange(value.slice());
-      }
-
-      function onChangeDiscount(e) {
-        s.discount = parseFloat(e.target.value);
-        delete trCache[s.key];
-        me.props.onChange(value.slice());
-      }
-
-      let className = (!s.price || !s.inventory) ? 'warning' : '';
-      let disabled = false;
-      let remove;
-      if (!s.valid) {
-        className = 'danger';
-        disabled = 'disabled';
-        remove = function () {
-          delete trCache[s.key];
-          me.props.onChange(_.without(value, s));
+    let content;
+    if (value.length) {
+      let me = this;
+      let trs = [];
+      let trCache = me._trCache;
+      value.forEach((s, index) => {
+        if (trCache[s.key]) {
+          trs.push(trCache[s.key]);
+          return;
         }
-      }
-      let pic = s.pic || this.props.data.pic;
-      trCache[s.key] = (
-        <tr key={index} className={className}>
-          <td><img src={pic.thumbUrl}/></td>
-          <td className="desc" dangerouslySetInnerHTML={{__html: s.desc.replace(/\|/g,'<br/>')}}/>
-          <td><input type="number" disabled={disabled} value={s.inventory} onChange={onChangeInventory}/></td>
-          <td><input type="number" disabled={disabled} value={s.price} onChange={onChangePrice}/></td>
-          <td><input type="number" disabled={disabled} value={s.discount} onChange={onChangeDiscount}/></td>
-          <td className="text-center text-danger"><i className="fa fa-close" onClick={remove}/></td>
+        function onChangeInventory(e) {
+          s.inventory = parseInt(e.target.value);
+          delete trCache[s.key];
+          me.props.onChange(value.slice());
+        }
+
+        function onChangePrice(e) {
+          s.price = parseFloat(e.target.value);
+          delete trCache[s.key];
+          me.props.onChange(value.slice());
+        }
+
+        function onChangeDiscount(e) {
+          s.discount = parseFloat(e.target.value);
+          delete trCache[s.key];
+          me.props.onChange(value.slice());
+        }
+
+        let className = (!s.price || !s.inventory) ? 'warning' : '';
+        let disabled = false;
+        let remove;
+        if (!s.valid) {
+          className = 'danger';
+          disabled = 'disabled';
+          remove = function () {
+            delete trCache[s.key];
+            me.props.onChange(_.without(value, s));
+          }
+        }
+        let pic = s.pic || this.props.data.pic;
+        trCache[s.key] = (
+          <tr key={index} className={className}>
+            <td><img src={pic.thumbUrl}/></td>
+            <td className="desc" dangerouslySetInnerHTML={{__html: s.desc.replace(/\|/g,'<br/>')}}/>
+            <td><input type="number" disabled={disabled} value={s.inventory} onChange={onChangeInventory}/></td>
+            <td><input type="number" disabled={disabled} value={s.price} onChange={onChangePrice}/></td>
+            <td><input type="number" disabled={disabled} value={s.discount} onChange={onChangeDiscount}/></td>
+            <td className="text-center text-danger"><i className="fa fa-close" onClick={remove}/></td>
+          </tr>
+        );
+        trs.push(trCache[s.key]);
+      });
+      content = (<Table fill className="goods-sku-editor">
+        <thead>
+        <tr>
+          <th>图片</th>
+          <th>属性</th>
+          <th>库存</th>
+          <th>价格</th>
+          <th>折扣价</th>
+          <th></th>
         </tr>
-      );
-      trs.push(trCache[s.key]);
-    });
+        </thead>
+        <tbody>
+        {trs}
+        </tbody>
+      </Table>);
+    } else {
+      content = <p className="text-center">请首先选择SKU相关属性</p>;
+    }
+
     return (
       <Panel header="SKU">
-        <Table fill className="goods-sku-editor">
-          <thead>
-          <tr>
-            <th>图片</th>
-            <th>属性</th>
-            <th>库存</th>
-            <th>价格</th>
-            <th>折扣价</th>
-            <th></th>
-          </tr>
-          </thead>
-          <tbody>
-          {trs}
-          </tbody>
-        </Table>
+        {content}
       </Panel>
     );
   }
