@@ -9,13 +9,17 @@ const service = __service;
 import GoodsCat from './GoodsCat';
 import _ from 'lodash';
 
+/**
+ * @class GoodsProp
+ * @extends Model
+ */
 export default class GoodsProp extends service.Model {
 
   static label = '商品属性';
   static defaultColumns = 'title,required,multi,sku,filter,input,activated,sort,createdAt';
   static defaultSort = '-sort';
   static searchFields = 'title';
-  static population = [{
+  static populations = [{
     path: 'values',
     select: 'title'
   }];
@@ -68,6 +72,11 @@ export default class GoodsProp extends service.Model {
       default: 0,
       private: true
     },
+    help: {
+      label: '帮助',
+      type: String,
+      help: '此帮助信息显示在商品编辑页面'
+    },
     values: {
       label: '可选值',
       type: ['GoodsPropValue'],
@@ -89,7 +98,12 @@ export default class GoodsProp extends service.Model {
     if (!this.createdAt) {
       this.createdAt = new Date;
     }
-    this.catsIndex = [];
+    if (this.isNew || this.isModified('cats')) {
+      await this.updateCatsIndex();
+    }
+  }
+
+  async updateCatsIndex() {
     if (this.cats.length) {
       let cats = {};
       for (let i in this.cats) {
@@ -103,6 +117,8 @@ export default class GoodsProp extends service.Model {
         _.defaults(cats, subs);
       }
       this.catsIndex = Object.keys(cats);
+    } else {
+      this.catsIndex = [];
     }
   }
 }

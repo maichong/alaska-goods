@@ -9,8 +9,12 @@ const service = __service;
 export default class Sku extends service.Model {
 
   static label = 'Sku';
-  static defaultColumns = 'title,goods';
+  static defaultColumns = 'pic,goods,desc,inventory,price,valid';
   static defaultSort = '-sort';
+  static noedit = true;
+  static noremove = true;
+  static nocreate = true;
+  static title = 'desc';
 
   static fields = {
     pic: {
@@ -22,6 +26,14 @@ export default class Sku extends service.Model {
       type: 'relationship',
       ref: 'Goods',
       index: true
+    },
+    key: {
+      label: 'KEY',
+      type: String
+    },
+    desc: {
+      label: '描述',
+      type: String
     },
     price: {
       label: '价格',
@@ -42,24 +54,17 @@ export default class Sku extends service.Model {
     volume: {
       label: '销量',
       type: Number,
-      default: 0
+      default: 0,
+      private: true
     },
-    activated: {
-      label: '上架',
-      type: Boolean
+    valid: {
+      label: '有效',
+      type: Boolean,
+      private: true
     },
     props: {
       label: '属性',
-      type: ['GoodsProp']
-    },
-    propValues: {
-      label: '属性值',
-      type: ['GoodsPropValue']
-    },
-    sort: {
-      label: '排序',
-      type: Number,
-      default: 0
+      type: Object
     },
     createdAt: {
       label: '添加时间',

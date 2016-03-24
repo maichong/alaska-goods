@@ -57,11 +57,36 @@ export default class GoodsCat extends service.Model {
     if (this.parent) {
       this.processParent();
     }
+    this.updateProps();
   }
 
   postRemove() {
     if (this.parent) {
       this.processParent();
+    }
+    this.updateProps();
+  }
+
+  /**
+   * [async] 更新商品属性索引关系
+   */
+  async updateProps() {
+    const GoodsProp = service.model('GoodsProp');
+    let cats = [this._id];
+    let parent = this.parent;
+    while (parent) {
+      let cat = await GoodsCat.findCache(parent);
+      if (cat) {
+        cats.push(cat._id);
+        parent = cat.parent;
+      } else {
+        parent = '';
+      }
+    }
+    let props = await GoodsProp.find().where('catsIndex').in(cats);
+    for (let prop of props) {
+      await prop.updateCatsIndex();
+      prop.save();
     }
   }
 

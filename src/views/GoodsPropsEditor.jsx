@@ -127,6 +127,29 @@ export default class GoodsPropsEditor extends React.Component {
         value = value.length ? value[0] : '';
       }
 
+      let help = '';
+      if (p.required) {
+        help += '必选 ';
+      }
+      if (p.sku) {
+        help += 'SKU ';
+      }
+      if (p.multi) {
+        help += '多选 ';
+      }
+      if (p.filter) {
+        help += '检索 ';
+      }
+      if (p.input) {
+        help += '可输入 ';
+      }
+      if (help) {
+        help = `( ${help} )`;
+      }
+      if (p.help) {
+        help += p.help;
+      }
+
       list.push(
         <div className="form-group" key={index}>
           <label className="control-label col-xs-2">{p.title}</label>
@@ -138,6 +161,7 @@ export default class GoodsPropsEditor extends React.Component {
               allowCreate={p.input}
               onChange={handleChange}
             />
+            <p className="help-block">{help}</p>
           </div>
         </div>
       );
