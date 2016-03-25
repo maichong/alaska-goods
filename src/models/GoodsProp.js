@@ -33,6 +33,12 @@ export default class GoodsProp extends service.Model {
     path: 'prop'
   }];
 
+  static groups = {
+    editor: {
+      title: '快速增加属性值'
+    }
+  };
+
   static fields = {
     title: {
       label: '标题',
@@ -96,6 +102,12 @@ export default class GoodsProp extends service.Model {
       label: '添加时间',
       type: Date,
       private: true
+    },
+    valueEditor: {
+      type: String,
+      view: 'GoodsPropsValueEditor',
+      private: true,
+      group: 'editor'
     }
   };
 
