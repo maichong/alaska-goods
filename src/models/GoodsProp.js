@@ -28,6 +28,11 @@ export default class GoodsProp extends service.Model {
     list: 1
   };
 
+  static relationships = [{
+    ref: 'GoodsPropValue',
+    path: 'prop'
+  }];
+
   static fields = {
     title: {
       label: '标题',

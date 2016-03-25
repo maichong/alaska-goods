@@ -44,10 +44,13 @@ export default class GoodsPropsEditor extends React.Component {
       newState.valueMap = this.arrayToMap(props.value);
       this.setState(newState);
     }
+    if (props.data.cat != this._cat) {
+      this.fetchProps(props.data.cat);
+    }
   }
 
-  fetchProps = () => {
-    let cat = this.props.data.cat;
+  fetchProps = (cat) => {
+    cat = cat || this.props.data.cat;
     if (this._cat == cat) {
       return;
     }
@@ -90,11 +93,11 @@ export default class GoodsPropsEditor extends React.Component {
     let props = this.props;
     let data = props.data;
     if (!data.cat) {
-      return <div className="text-center">请先选择商品分类</div>;
+      return <p className="text-center">请先选择商品分类</p>;
     }
     let goodsProps = this.state.goodsProps;
     if (!goodsProps || !goodsProps.length) {
-      return <div className="text-center">Loading...</div>;
+      return <p className="text-center">Loading...</p>;
     }
 
     let valueMap = this.state.valueMap;

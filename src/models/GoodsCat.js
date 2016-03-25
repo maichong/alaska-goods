@@ -16,6 +16,12 @@ export default class GoodsCat extends service.Model {
     list: 1
   };
 
+  static relationships = [{
+    ref: 'GoodsCat',
+    path: 'parent',
+    title: '子分类'
+  }];
+
   static fields = {
     title: {
       label: '标题',
