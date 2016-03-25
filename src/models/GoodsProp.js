@@ -107,7 +107,8 @@ export default class GoodsProp extends service.Model {
       type: String,
       view: 'GoodsPropsValueEditor',
       private: true,
-      group: 'editor'
+      group: 'editor',
+      depends:'_id'
     }
   };
 
