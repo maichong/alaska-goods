@@ -12,7 +12,7 @@ export default class GoodsPropValue extends service.Model {
 
   static label = '商品属性值';
   static defaultColumns = 'title,prop,sort,createdAt';
-  static defaultSort = '-sort';
+  static defaultSort = '-sort -createdAt';
 
   static fields = {
     title: {
@@ -23,10 +23,11 @@ export default class GoodsPropValue extends service.Model {
     prop: {
       label: '属性',
       type: GoodsProp,
+      index: true,
       require: true
     },
     sort: {
-      label: '排序',
+      label: '排序值',
       type: Number,
       default: 0
     },
@@ -36,9 +37,16 @@ export default class GoodsPropValue extends service.Model {
     }
   };
 
-  preSave() {
+  async preSave() {
     if (!this.createdAt) {
       this.createdAt = new Date;
+    }
+    let count = await GoodsPropValue.count({
+      prop: this.prop,
+      title: this.title
+    }).where('_id').ne(this._id);
+    if (count) {
+      throw new Error('Reduplicate prop value title');
     }
   }
 
