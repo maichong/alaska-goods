@@ -108,7 +108,7 @@ export default class GoodsProp extends service.Model {
       view: 'GoodsPropsValueEditor',
       private: true,
       group: 'editor',
-      depends:'_id'
+      depends: '_id'
     }
   };
 
@@ -121,6 +121,16 @@ export default class GoodsProp extends service.Model {
     }
   }
 
+  async preRemove() {
+    const GoodsPropValue = service.model('GoodsPropValue');
+    if (await GoodsPropValue.count({ prop: this._id })) {
+      throw new Error('Can not remove this goods prop, please remove the values first!');
+    }
+  }
+
+  /**
+   * 更新本属性所对应分类的关联索引
+   */
   async updateCatsIndex() {
     if (this.cats.length) {
       let cats = {};

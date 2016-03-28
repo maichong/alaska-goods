@@ -28,6 +28,7 @@ class GoodsPropsValueEditor extends React.Component {
     if (event.key === 'Enter') {
       this.handleSave();
     }
+    event.preventDefault();
   };
 
   handleChange = (event)=> {
