@@ -25,13 +25,15 @@ class GoodsPropsValueEditor extends React.Component {
   }
 
   handleKeyPress = (event) => {
+    console.log(event.key);
     if (event.key === 'Enter') {
       this.handleSave();
+      event.preventDefault();
     }
-    event.preventDefault();
   };
 
   handleChange = (event)=> {
+    console.log(event.target.value,event.key);
     this.setState({ value: event.target.value });
   };
 
@@ -55,14 +57,13 @@ class GoodsPropsValueEditor extends React.Component {
   shouldComponentUpdate(props, state) {
     return state.value !== this.state.value;
   }
-
   render() {
     let state = this.state;
     return (
       <div className="row">
         <div className="col-md-6 col-md-offset-2">
-          <input className="form-control" placeholder="请输入属性值标题" value={state.value} onChange={this.handleChange}
-                 onKeyPress={this.handleKeyPress}/>
+          <input className="form-control" placeholder="请输入属性值标题" value={state.value} onKeyPress={this.handleKeyPress} onChange={this.handleChange}
+                 />
         </div>
         <div className="col-md-2">
           <Button bsStyle="primary" onClick={this.handleSave} block>保存</Button>
