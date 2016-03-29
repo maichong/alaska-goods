@@ -1,6 +1,6 @@
 {
   "name": "alaska-goods",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Alaska goods service",
   "main": "lib/alaska-goods.js",
   "scripts": {
@@ -23,9 +23,6 @@
     "url": "https://github.com/maichong/alaska-goods/issues"
   },
   "homepage": "https://github.com/maichong/alaska-goods#readme",
-  "peerDependencies": {
-    "alaska": "*"
-  },
   "devDependencies": {
     "babel-plugin-syntax-async-functions": "^6.5.0",
     "babel-plugin-syntax-class-properties": "^6.5.0",
@@ -40,8 +37,8 @@
     "rimraf": "^2.5.2"
   },
   "dependencies": {
-    "alaska-balance": "^0.1.0",
-    "alaska-field-html": "^0.1.0",
-    "alaska-field-select": "^0.2.0"
+    "alaska-balance": "^0.3.0",
+    "alaska-field-html": "^0.4.1",
+    "alaska-field-select": "^0.4.5"
   }
 }
