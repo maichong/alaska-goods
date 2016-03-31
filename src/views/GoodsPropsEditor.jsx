@@ -20,6 +20,7 @@ export default class GoodsPropsEditor extends React.Component {
 
   static contextTypes = {
     settings: React.PropTypes.object,
+    t: React.PropTypes.func,
   };
 
   constructor(props, context) {
@@ -92,8 +93,9 @@ export default class GoodsPropsEditor extends React.Component {
   render() {
     let props = this.props;
     let data = props.data;
+    const t = this.context.t;
     if (!data.cat) {
-      return <p className="text-center">请先选择商品分类</p>;
+      return <p className="text-center">{t('Select goods category first!', 'alaska-goods')}</p>;
     }
     let goodsProps = this.state.goodsProps;
     if (!goodsProps || !goodsProps.length) {
@@ -130,24 +132,26 @@ export default class GoodsPropsEditor extends React.Component {
         value = value.length ? value[0] : '';
       }
 
-      let help = '';
+      let help = [];
       if (p.required) {
-        help += '必选 ';
+        help.push(t('Required', 'alaska-goods'));
       }
       if (p.sku) {
-        help += 'SKU ';
+        help.push(t('SKU', 'alaska-goods'));
       }
       if (p.multi) {
-        help += '多选 ';
+        help.push(t('Multi', 'alaska-goods'));
       }
       if (p.filter) {
-        help += '检索 ';
+        help.push(t('Filter', 'alaska-goods'));
       }
       if (p.input) {
-        help += '可输入 ';
+        help.push(t('Input', 'alaska-goods'));
       }
-      if (help) {
-        help = `( ${help} )`;
+      if (help.length) {
+        help = `( ${help.join(' ')} ) `;
+      } else {
+        help = '';
       }
       if (p.help) {
         help += p.help;

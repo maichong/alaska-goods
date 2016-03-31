@@ -4,35 +4,33 @@
  * @author Liang <liang@maichong.it>
  */
 
-const service = __service;
-
 import GoodsProp from './GoodsProp';
 
 export default class GoodsPropValue extends service.Model {
 
-  static label = '商品属性值';
+  static label = 'Property Values';
   static defaultColumns = 'title,prop,sort,createdAt';
   static defaultSort = '-sort -createdAt';
 
   static fields = {
     title: {
-      label: '标题',
+      label: 'Title',
       type: String,
       require: true
     },
     prop: {
-      label: '属性',
+      label: 'Goods Property',
       type: GoodsProp,
       index: true,
       require: true
     },
     sort: {
-      label: '排序值',
+      label: 'Sort',
       type: Number,
       default: 0
     },
     createdAt: {
-      label: '添加时间',
+      label: 'Created At',
       type: Date
     }
   };

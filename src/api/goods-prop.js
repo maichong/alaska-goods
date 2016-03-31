@@ -4,8 +4,6 @@
  * @author Liang <liang@maichong.it>
  */
 
-const service = __service;
-
 export async function list(ctx, next) {
   let filters = ctx.query.filters || {};
   if (typeof filters === 'string') {

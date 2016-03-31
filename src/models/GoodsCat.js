@@ -4,14 +4,14 @@
  * @author Liang <liang@maichong.it>
  */
 
-const service = __service;
 import _ from 'lodash';
 
 export default class GoodsCat extends service.Model {
 
-  static label = '商品分类';
+  static label = 'Goods Category';
   static defaultColumns = 'title,parent,sort,createdAt';
   static defaultSort = '-sort';
+  static searchFields = 'title';
   static api = {
     list: 1
   };
@@ -19,23 +19,23 @@ export default class GoodsCat extends service.Model {
   static relationships = [{
     ref: 'GoodsCat',
     path: 'parent',
-    title: '子分类'
+    title: 'Sub Categories'
   }];
 
   static fields = {
     title: {
-      label: '标题',
+      label: 'Title',
       type: String,
       require: true
     },
     parent: {
-      label: '父分类',
+      label: 'Parent Category',
       type: 'relationship',
       ref: 'GoodsCat',
       index: true
     },
     subCats: {
-      label: '子分类',
+      label: 'Sub Categories',
       type: 'relationship',
       ref: 'GoodsCat',
       multi: true,
@@ -43,12 +43,12 @@ export default class GoodsCat extends service.Model {
       private: true
     },
     sort: {
-      label: '排序',
+      label: 'Sort',
       type: Number,
       default: 0
     },
     createdAt: {
-      label: '添加时间',
+      label: 'Created At',
       type: Date
     }
   };

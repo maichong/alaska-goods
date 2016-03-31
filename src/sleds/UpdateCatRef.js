@@ -5,14 +5,12 @@
  * @author Liang <liang@maichong.it>
  */
 
-'use strict';
-
 import GoodsCat from '../models/GoodsCat';
 
 /**
  * 更新分类父子关系
  */
-export default class UpdateCatRef extends __service.Sled {
+export default class UpdateCatRef extends service.Sled {
   /**
    * @param {string|ObjectId} data.cat 父分类ID
    */

@@ -4,8 +4,6 @@
  * @author Liang <liang@maichong.it>
  */
 
-const service = __service;
-
 import GoodsCat from './GoodsCat';
 import _ from 'lodash';
 
@@ -15,7 +13,7 @@ import _ from 'lodash';
  */
 export default class GoodsProp extends service.Model {
 
-  static label = '商品属性';
+  static label = 'Goods Properties';
   static defaultColumns = 'title,required,multi,sku,filter,input,activated,sort,createdAt';
   static defaultSort = '-sort';
   static searchFields = 'title';
@@ -35,34 +33,34 @@ export default class GoodsProp extends service.Model {
 
   static groups = {
     editor: {
-      title: '快速增加属性值'
+      title: 'Create Property Values'
     }
   };
 
   static fields = {
     title: {
-      label: '标题',
+      label: 'Title',
       type: String,
       require: true
     },
     cats: {
-      label: '所属分类',
+      label: 'Categories',
       type: [GoodsCat],
       private: true
     },
     catsIndex: {
-      label: '所属分类索引',
+      label: 'Categories Index',
       type: [GoodsCat],
       index: true,
       hidden: true,
       private: true
     },
     required: {
-      label: '必选',
+      label: 'Required',
       type: Boolean
     },
     multi: {
-      label: '多选',
+      label: 'Multi',
       type: Boolean
     },
     sku: {
@@ -70,36 +68,36 @@ export default class GoodsProp extends service.Model {
       type: Boolean
     },
     filter: {
-      label: '检索',
+      label: 'Filter',
       type: Boolean
     },
     input: {
-      label: '可输入',
+      label: 'Input',
       type: Boolean
     },
     sort: {
-      label: '排序',
+      label: 'Sort',
       type: Number,
       default: 0,
       private: true
     },
     help: {
-      label: '帮助',
+      label: 'Help',
       type: String,
-      help: '此帮助信息显示在商品编辑页面'
+      help: 'This message will display in the goods editor.'
     },
     values: {
-      label: '可选值',
+      label: 'Values',
       type: ['GoodsPropValue'],
       hidden: true
     },
     activated: {
-      label: '激活',
+      label: 'Activated',
       type: Boolean,
       private: true
     },
     createdAt: {
-      label: '添加时间',
+      label: 'Created At',
       type: Date,
       private: true
     },

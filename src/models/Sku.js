@@ -4,8 +4,6 @@
  * @author Liang <liang@maichong.it>
  */
 
-const service = __service;
-
 export default class Sku extends service.Model {
 
   static label = 'Sku';
@@ -18,11 +16,12 @@ export default class Sku extends service.Model {
 
   static fields = {
     pic: {
-      label: '主图',
+      label: 'Main Picture',
       type: 'image',
       require: true
     },
     goods: {
+      label: 'Goods',
       type: 'relationship',
       ref: 'Goods',
       index: true
@@ -32,42 +31,41 @@ export default class Sku extends service.Model {
       type: String
     },
     desc: {
-      label: '描述',
+      label: 'Description',
       type: String
     },
     price: {
-      label: '价格',
+      label: 'Price',
       type: Number,
       default: 0
     },
     discount: {
-      label: '折扣价',
+      label: 'Discount',
       type: Number,
-      default: 0,
-      help: '为0则表示不打折'
+      default: 0
     },
     inventory: {
-      label: '库存',
+      label: 'Inventory',
       type: Number,
       default: 0
     },
     volume: {
-      label: '销量',
+      label: 'Volume',
       type: Number,
       default: 0,
       private: true
     },
     valid: {
-      label: '有效',
+      label: 'Valid',
       type: Boolean,
       private: true
     },
     props: {
-      label: '属性',
+      label: 'Goods Properties',
       type: Object
     },
     createdAt: {
-      label: '添加时间',
+      label: 'Created At',
       type: Date
     }
   };

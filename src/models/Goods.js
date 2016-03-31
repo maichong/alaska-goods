@@ -4,15 +4,14 @@
  * @author Liang <liang@maichong.it>
  */
 
-const service = __service;
-const balanceService = service.service('balance');
+const BALANCE = alaska.service('alaska-balance');
 
 import _ from 'lodash';
 import Sku from './Sku';
 
 export default class Goods extends service.Model {
 
-  static label = '商品';
+  static label = 'Goods';
   static defaultColumns = 'pic,title,cat,inventory,activated,createdAt';
   static defaultSort = '-sort';
   static searchFields = 'title';
@@ -29,110 +28,110 @@ export default class Goods extends service.Model {
     nolist: true
   }];
   static groups = {
-    price: '价格',
-    inventory: '库存',
-    props: '属性',
+    price: 'Price',
+    inventory: 'Inventory',
+    props: 'Goods Properties',
     sku: {
       title: 'SKU',
       panel: false
     },
-    desc: '详情',
+    desc: 'Description',
   };
 
   static fields = {
     title: {
-      label: '标题',
+      label: 'Title',
       type: String,
       required: true
     },
     pic: {
-      label: '主图',
+      label: 'Main Picture',
       type: 'image',
       required: true
     },
     pics: {
-      label: '附图',
+      label: 'Other Pictures',
       type: 'image',
       multi: true
     },
     cat: {
-      label: '分类',
+      label: 'Category',
       ref: 'GoodsCat',
       index: true,
       required: true
     },
     cats: {
-      label: '分类列表',
+      label: 'Categories',
       type: ['GoodsCat'],
       hidden: true
     },
     currency: {
-      label: '货币',
+      label: 'Currency',
       type: 'select',
-      options: balanceService.currencies,
-      default: balanceService.defaultCurrency.value,
+      options: BALANCE.currencies,
+      default: BALANCE.defaultCurrency.value,
       group: 'price'
     },
     price: {
-      label: '价格',
+      label: 'Price',
       type: Number,
       default: 0,
       format: '0.00',
       group: 'price'
     },
     discount: {
-      label: '折扣价',
+      label: 'Discount',
       type: Number,
       default: 0,
       format: '0.00',
-      help: '为0则表示不打折',
-      group: 'price'
-    },
-    discountEndAt: {
-      label: '折扣截止时间',
-      type: Date,
+      help: '0 for no discount',
       group: 'price'
     },
     discountStartAt: {
-      label: '折扣截止时间',
+      label: 'Discount Start At',
+      type: Date,
+      group: 'price'
+    },
+    discountEndAt: {
+      label: 'Discount End At',
       type: Date,
       group: 'price'
     },
     inventory: {
-      label: '库存',
+      label: 'Inventory',
       type: Number,
       default: 0,
       group: 'inventory'
     },
     volume: {
-      label: '销量',
+      label: 'Volume',
       type: Number,
       default: 0,
       group: 'inventory'
     },
     sort: {
-      label: '排序',
+      label: 'Sort',
       type: Number,
       default: 0
     },
     activated: {
-      label: '上架',
+      label: 'Activated',
       type: Boolean
     },
     props: {
-      label: '属性',
+      label: 'Goods Properties',
       type: Object,
       view: 'GoodsPropsEditor',
       group: 'props'
     },
     propValues: {
-      label: '属性值',
+      label: 'Properties Values',
       type: ['GoodsPropValue'],
       hidden: true,
       private: true
     },
     skus: {
-      label: 'SKU记录',
+      label: 'SKU',
       type: ['Sku'],
       hidden: true
     },
@@ -143,7 +142,7 @@ export default class Goods extends service.Model {
       private: true
     },
     createdAt: {
-      label: '添加时间',
+      label: 'Created At',
       type: Date
     },
     desc: {

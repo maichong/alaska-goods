@@ -124,6 +124,10 @@ export default class GoodsSkuEditor extends React.Component {
     data: React.PropTypes.object
   };
 
+  static contextTypes = {
+    t: React.PropTypes.func,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -155,6 +159,7 @@ export default class GoodsSkuEditor extends React.Component {
   render() {
     //let { value } = this.props;
     let { value } = this.state;
+    const t = this.context.t;
 
     let content;
     if (value.length) {
@@ -211,11 +216,11 @@ export default class GoodsSkuEditor extends React.Component {
       content = (<Table fill className="goods-sku-editor">
         <thead>
         <tr>
-          <th>图片</th>
-          <th>属性</th>
-          <th>库存</th>
-          <th>价格</th>
-          <th>折扣价</th>
+          <th>{t('Picture', 'alaska-goods')}</th>
+          <th>{t('Properties', 'alaska-goods')}</th>
+          <th>{t('Inventory', 'alaska-goods')}</th>
+          <th>{t('Price', 'alaska-goods')}</th>
+          <th>{t('Discount', 'alaska-goods')}</th>
           <th></th>
         </tr>
         </thead>
