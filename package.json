@@ -1,6 +1,6 @@
 {
   "name": "alaska-goods",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "Alaska goods service",
   "main": "lib/alaska-goods.js",
   "scripts": {
