@@ -6,8 +6,7 @@
 
 import React from 'react';
 
-import { PREFIX, actions } from 'alaska-admin-view';
-import { stringify } from 'qs';
+import { actions } from 'alaska-admin-view';
 import { Button } from 'react-bootstrap';
 
 import { bindActionCreators } from 'redux';
