@@ -146,9 +146,11 @@ export default class Goods extends service.Model {
       type: Date
     },
     desc: {
-      label: ' ',
+      label: 'Description',
       type: 'html',
-      group: 'desc'
+      group: 'desc',
+      fullWidth: true,
+      nolabel: true
     }
   };
 
