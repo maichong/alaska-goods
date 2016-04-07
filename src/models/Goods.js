@@ -165,7 +165,7 @@ export default class Goods extends service.Model {
       _.each(this.props, prop => {
         if (prop.filter) {
           _.each(prop.values, value => {
-            if (service.util.isMongoId(value.value)) {
+            if (service.util.isObjectId(value.value)) {
               propValues.push(value.value);
             }
           });

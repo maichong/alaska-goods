@@ -14,7 +14,7 @@ export async function list(ctx, next) {
     }
   }
   filters.activated = true;
-  if (service.util.isMongoId(ctx.query.cat)) {
+  if (service.util.isObjectId(ctx.query.cat)) {
     filters.catsIndex = ctx.query.cat;
   }
   ctx.query.filters = filters;

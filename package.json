@@ -1,6 +1,6 @@
 {
   "name": "alaska-goods",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Alaska goods service",
   "main": "lib/alaska-goods.js",
   "scripts": {
@@ -37,8 +37,8 @@
     "rimraf": "^2.5.2"
   },
   "dependencies": {
-    "alaska-balance": "^0.7.0",
+    "alaska-balance": "^0.7.1",
     "alaska-field-html": "^0.7.0",
-    "alaska-field-select": "^0.6.1"
+    "alaska-field-select": "^0.7.0"
   }
 }
