@@ -41,7 +41,7 @@ export default class GoodsProp extends service.Model {
     title: {
       label: 'Title',
       type: String,
-      require: true
+      required: true
     },
     cats: {
       label: 'Categories',

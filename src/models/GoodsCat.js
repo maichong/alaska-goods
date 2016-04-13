@@ -26,7 +26,7 @@ export default class GoodsCat extends service.Model {
     title: {
       label: 'Title',
       type: String,
-      require: true
+      required: true
     },
     parent: {
       label: 'Parent Category',

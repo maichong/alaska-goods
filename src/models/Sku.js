@@ -18,7 +18,7 @@ export default class Sku extends service.Model {
     pic: {
       label: 'Main Picture',
       type: 'image',
-      require: true
+      required: true
     },
     goods: {
       label: 'Goods',

@@ -16,13 +16,13 @@ export default class GoodsPropValue extends service.Model {
     title: {
       label: 'Title',
       type: String,
-      require: true
+      required: true
     },
     prop: {
       label: 'Goods Property',
       type: GoodsProp,
       index: true,
-      require: true
+      required: true
     },
     sort: {
       label: 'Sort',
