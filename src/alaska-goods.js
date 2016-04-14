@@ -49,8 +49,25 @@ export default class GoodsService extends alaska.Service {
         map[c.parent].subs.push(c);
       }
     });
-    cats = cats.filter(c => !c.parent);
+    cats = cats.filter(c => {
+      let res = !c.parent;
+      delete c.parent;
+      if (!c.subs.length) {
+        delete c.subs;
+      }
+      return res;
+    });
     cache.set(cats);
     return cats;
+  }
+
+  clearCache() {
+    if (!this._clearCacheTimer) {
+      this._clearCacheTimer = setTimeout(() => {
+        let cache = this.cache;
+        this._clearCacheTimer = 0;
+        cache.del('goods_cats');
+      }, 5);
+    }
   }
 }

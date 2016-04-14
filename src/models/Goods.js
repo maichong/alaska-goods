@@ -8,6 +8,7 @@ const BALANCE = alaska.service('alaska-balance');
 
 import _ from 'lodash';
 import Sku from './Sku';
+import GoodsCat from './GoodsCat';
 
 export default class Goods extends service.Model {
 
@@ -18,6 +19,9 @@ export default class Goods extends service.Model {
   static api = {
     list: 1,
     show: 1
+  };
+  static defaultFilters = {
+    activated: true
   };
   static populations = [{
     path: 'skus',
@@ -56,14 +60,15 @@ export default class Goods extends service.Model {
     },
     cat: {
       label: 'Category',
-      ref: 'GoodsCat',
+      ref: GoodsCat,
       index: true,
       required: true
     },
     cats: {
       label: 'Categories',
-      type: ['GoodsCat'],
-      hidden: true
+      type: [GoodsCat],
+      hidden: true,
+      private: true
     },
     currency: {
       label: 'Currency',
@@ -116,7 +121,8 @@ export default class Goods extends service.Model {
     },
     activated: {
       label: 'Activated',
-      type: Boolean
+      type: Boolean,
+      private: true
     },
     props: {
       label: 'Goods Properties',
@@ -148,6 +154,7 @@ export default class Goods extends service.Model {
     desc: {
       label: 'Description',
       type: 'html',
+      default: '',
       group: 'desc',
       fullWidth: true,
       nolabel: true
@@ -157,6 +164,16 @@ export default class Goods extends service.Model {
   async preSave() {
     if (!this.createdAt) {
       this.createdAt = new Date;
+    }
+
+    if (this.isModified('cat') || !this.cats || !this.cats.length) {
+      this.cats = [];
+      let cat = await GoodsCat.findCache(this.cat);
+      if (cat) {
+        let cats = await cat.parents();
+        cats.unshift(cat);
+        this.cats = cats.map(c => c._id);
+      }
     }
 
     //如果商品属性发生更改,重建属性值索引,供前端检索

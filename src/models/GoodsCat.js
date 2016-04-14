@@ -45,7 +45,8 @@ export default class GoodsCat extends service.Model {
     sort: {
       label: 'Sort',
       type: Number,
-      default: 0
+      default: 0,
+      private: true
     },
     createdAt: {
       label: 'Created At',
@@ -61,6 +62,7 @@ export default class GoodsCat extends service.Model {
   }
 
   postSave() {
+    service.clearCache();
     if (this.parent) {
       service.run('UpdateCatRef', { cat: this.parent });
     }
@@ -68,6 +70,7 @@ export default class GoodsCat extends service.Model {
   }
 
   postRemove() {
+    service.clearCache();
     if (this.parent) {
       service.run('UpdateCatRef', { cat: this.parent });
     }
@@ -106,5 +109,21 @@ export default class GoodsCat extends service.Model {
       _.defaults(subs, subsubs);
     }
     return subs;
+  }
+
+  /**
+   * 获取当前分类的所有父分类对象列表
+   * @returns {[GoodsCat]}
+   */
+  async parents() {
+    let cats = [];
+    let cat = this;
+    while (cat && cat.parent) {
+      cat = await GoodsCat.findCache(cat.parent);
+      if (cat) {
+        cats.push(cat);
+      }
+    }
+    return cats;
   }
 }
