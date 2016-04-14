@@ -25,4 +25,32 @@ export default class GoodsService extends alaska.Service {
     options.dir = __dirname;
     super(options, alaska);
   }
+
+  /**
+   * 获取商品分类列表
+   */
+  async cats() {
+    let cache = this.cache;
+    let data = await cache.get('goods_cats');
+    if (data) {
+      return data;
+    }
+    const GoodsCat = this.model('GoodsCat');
+    let map = {};
+    let cats = await GoodsCat.find().sort('-sort');
+    cats = cats.map(cat => {
+      let c = cat.data();
+      c.subs = [];
+      map[c.id] = c;
+      return c;
+    });
+    cats.forEach(c => {
+      if (c.parent && map[c.parent]) {
+        map[c.parent].subs.push(c);
+      }
+    });
+    cats = cats.filter(c => !c.parent);
+    cache.set(cats);
+    return cats;
+  }
 }

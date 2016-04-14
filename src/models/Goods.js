@@ -12,7 +12,7 @@ import Sku from './Sku';
 export default class Goods extends service.Model {
 
   static label = 'Goods';
-  static defaultColumns = 'pic,title,cat,inventory,activated,createdAt';
+  static defaultColumns = 'pic,title,cat,price,inventory,activated,createdAt';
   static defaultSort = '-sort';
   static searchFields = 'title';
   static api = {

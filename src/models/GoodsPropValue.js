@@ -31,7 +31,8 @@ export default class GoodsPropValue extends service.Model {
     },
     createdAt: {
       label: 'Created At',
-      type: Date
+      type: Date,
+      private: true
     }
   };
 
