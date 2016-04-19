@@ -21,7 +21,7 @@ export async function newest(ctx) {
   let cacheKey = 'goods_newest_' + cid;
   let results = await cache.get(cacheKey);
   if (!results) {
-    results = await Goods.find({ activated: true }).sort('-createdAt').limit(10);
+    results = await Goods.find({ activated: true, cats: cid }).sort('-createdAt').limit(10);
     results = results.map(goods => goods.data().omit('desc', 'pics', 'skus', 'cat'));
     cache.set(cacheKey, results, 3600);
   }
@@ -35,7 +35,7 @@ export async function popular(ctx) {
   let cacheKey = 'goods_popular_' + cid;
   let results = await cache.get(cacheKey);
   if (!results) {
-    results = await Goods.find({ activated: true }).sort('-volume -sort').limit(10);
+    results = await Goods.find({ activated: true, cats: cid }).sort('-volume -sort').limit(10);
     results = results.map(goods => goods.data().omit('desc', 'pics', 'skus', 'cat'));
     cache.set(cacheKey, results, 3600);
   }
