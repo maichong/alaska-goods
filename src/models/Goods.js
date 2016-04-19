@@ -117,7 +117,8 @@ export default class Goods extends service.Model {
     sort: {
       label: 'Sort',
       type: Number,
-      default: 0
+      default: 0,
+      private: true
     },
     activated: {
       label: 'Activated',
