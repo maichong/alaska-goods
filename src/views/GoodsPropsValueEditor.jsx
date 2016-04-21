@@ -7,7 +7,6 @@
 import React from 'react';
 
 import { actions } from 'alaska-admin-view';
-import { Button } from 'react-bootstrap';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -65,7 +64,7 @@ class GoodsPropsValueEditor extends React.Component {
           />
         </div>
         <div className="col-md-2">
-          <Button bsStyle="primary" onClick={this.handleSave} block>保存</Button>
+          <button className="btn btn-primary btn-block" onClick={this.handleSave}>保存</button>
         </div>
       </div>
     );

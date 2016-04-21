@@ -6,11 +6,12 @@
 
 import React from 'react';
 
-import { Panel, Table, Input } from 'react-bootstrap';
-
 import '../../goods.less';
 
-import _ from 'lodash';
+import _forEach from 'lodash/forEach';
+import _reduce from 'lodash/reduce';
+import _find from 'lodash/find';
+import _values from 'lodash/values';
 
 /**
  * @param value
@@ -20,7 +21,7 @@ import _ from 'lodash';
 function updateValue(value, goodsProps, goodsPropsMap) {
   value = value || [];
   let skuProps = [];
-  _.forEach(goodsProps, prop => {
+  _forEach(goodsProps, prop => {
     if (prop.sku) {
       skuProps.push(prop);
     }
@@ -33,7 +34,7 @@ function updateValue(value, goodsProps, goodsPropsMap) {
       if (!skuProps.length) {
         return [];
       }
-      _.forEach(prop.values, v=> {
+      _forEach(prop.values, v => {
         res.push({
           props: {
             [prop.id]: v.value
@@ -41,9 +42,9 @@ function updateValue(value, goodsProps, goodsPropsMap) {
         });
       });
     } else {
-      _.forEach(req, p => {
-        _.forEach(prop.values, v=> {
-          let props = _.assign({}, p.props, {
+      _forEach(req, p => {
+        _forEach(prop.values, v => {
+          let props = Object.assign({}, p.props, {
             [prop.id]: v.value
           });
           res.push({ props });
@@ -59,7 +60,7 @@ function updateValue(value, goodsProps, goodsPropsMap) {
     return res;
   }
 
-  let skuMap = _.reduce(create(0, {}), (res, s) => {
+  let skuMap = _reduce(create(0, {}), (res, s) => {
     let sortedKeys = Object.keys(s.props).sort();
     //56f124ad50443e202b820a0d:散装|56f12e1d50443e202b820a11:56f12e3b50443e202b820a12
     s.key = sortedKeys.map(id => id + ':' + s.props[id]).join('|');
@@ -80,7 +81,7 @@ function updateValue(value, goodsProps, goodsPropsMap) {
     } else if (v.price && v.inventory) {
       //如果sku不在允许中,并且sku已经设置了价格和库存
       v.valid = false;
-      let s = _.find(skuMap, s => {
+      let s = _find(skuMap, s => {
         if (s.id || s.price || s.inventory) {
           return false;
         }
@@ -102,15 +103,15 @@ function updateValue(value, goodsProps, goodsPropsMap) {
       }
     }//else 没有在允许的sku列表中,同时本sku记录无效,直接抛弃
   });
-  return _.values(skuMap);
+  return _values(skuMap);
 }
 
 function createPropsMap(props) {
   let map = {};
-  _.forEach(props, p=> {
-    let item = _.assign({}, p);
+  _forEach(props, p => {
+    let item = Object.assign({}, p);
     item.valueMap = {};
-    _.forEach(p.values, v=> {
+    _forEach(p.values, v => {
       item.valueMap[v.value] = v;
     });
     map[item.id] = item;
@@ -121,7 +122,8 @@ function createPropsMap(props) {
 export default class GoodsSkuEditor extends React.Component {
 
   static propTypes = {
-    data: React.PropTypes.object
+    data: React.PropTypes.object,
+    value: React.PropTypes.array,
   };
 
   static contextTypes = {
@@ -153,7 +155,7 @@ export default class GoodsSkuEditor extends React.Component {
   }
 
   shouldComponentUpdate(props, state) {
-    return state.value != this.state.value;
+    return state.value !== this.state.value;
   }
 
   render() {
@@ -197,8 +199,8 @@ export default class GoodsSkuEditor extends React.Component {
           disabled = 'disabled';
           remove = function () {
             delete trCache[s.key];
-            me.props.onChange(_.without(value, s));
-          }
+            me.props.onChange(_without(value, s));
+          };
         }
         let pic = s.pic || this.props.data.pic;
         trCache[s.key] = (
@@ -213,7 +215,7 @@ export default class GoodsSkuEditor extends React.Component {
         );
         trs.push(trCache[s.key]);
       });
-      content = (<Table fill className="goods-sku-editor">
+      content = (<table className="table goods-sku-editor">
         <thead>
         <tr>
           <th>{t('Picture', 'alaska-goods')}</th>
@@ -227,15 +229,16 @@ export default class GoodsSkuEditor extends React.Component {
         <tbody>
         {trs}
         </tbody>
-      </Table>);
+      </table>);
     } else {
       content = <p className="text-center">请首先选择SKU相关属性</p>;
     }
 
     return (
-      <Panel header="SKU">
+      <div className="panel panel-default">
+        <div className="panel-heading">SKU</div>
         {content}
-      </Panel>
+      </div>
     );
   }
 }

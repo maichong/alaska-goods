@@ -1,6 +1,6 @@
 {
   "name": "alaska-goods",
-  "version": "0.8.6",
+  "version": "0.8.7",
   "description": "Alaska goods service",
   "main": "lib/alaska-goods.js",
   "scripts": {
@@ -24,8 +24,8 @@
   },
   "homepage": "https://github.com/maichong/alaska-goods#readme",
   "dependencies": {
-    "alaska-balance": "^0.8.0",
-    "alaska-field-html": "^0.7.0",
-    "alaska-field-select": "^0.7.3"
+    "alaska-balance": "^0.8.1",
+    "alaska-field-html": "^0.8.0",
+    "alaska-field-select": "^0.8.0"
   }
 }

@@ -10,7 +10,8 @@ import { api } from 'alaska-admin-view';
 
 import Select from 'alaska-field-select/lib/Select';
 
-import _ from 'lodash';
+import _map from 'lodash/map';
+import _forEach from 'lodash/forEach';
 
 export default class GoodsPropsEditor extends React.Component {
 
@@ -58,9 +59,9 @@ export default class GoodsPropsEditor extends React.Component {
     this._cat = cat;
     api.get(this.state.service.prefix + '/api/goods-prop?cat=' + cat).then(res => {
       let map = {};
-      _.each(res.results, prop => {
+      _forEach(res.results, prop => {
         map[prop.id] = prop;
-        prop.options = _.map(prop.values, v => ({ label: v.title, value: v.id }));
+        prop.options = _map(prop.values, v => ({ label: v.title, value: v.id }));
       });
       this.setState({
         goodsProps: res.results,
@@ -71,7 +72,7 @@ export default class GoodsPropsEditor extends React.Component {
 
   arrayToMap(array) {
     let map = {};
-    _.each(array, v=> {
+    _forEach(array, v=> {
       map[v.id] = v;
     });
     return map;
@@ -81,7 +82,7 @@ export default class GoodsPropsEditor extends React.Component {
     let goodsProps = this.state.goodsProps;
     let valueMap = this.state.valueMap;
     let values = [];
-    _.each(goodsProps, p => {
+    _forEach(goodsProps, p => {
       let prop = valueMap[p.id];
       if (prop && prop.values.length) {
         values.push(prop);

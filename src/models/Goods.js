@@ -13,7 +13,7 @@ import GoodsCat from './GoodsCat';
 export default class Goods extends service.Model {
 
   static label = 'Goods';
-  static defaultColumns = 'pic,title,cat,price,inventory,activated,createdAt';
+  static defaultColumns = 'pic,title,cat,price,inventory,activated,sort,createdAt';
   static defaultSort = '-sort';
   static searchFields = 'title';
   static api = {
