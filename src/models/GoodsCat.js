@@ -7,9 +7,8 @@
 import _ from 'lodash';
 
 export default class GoodsCat extends service.Model {
-
   static label = 'Goods Category';
-  static defaultColumns = 'title,parent,sort,createdAt';
+  static defaultColumns = '_id,title,parent,sort,createdAt';
   static defaultSort = '-sort';
   static searchFields = 'title';
   static api = {
@@ -20,6 +19,9 @@ export default class GoodsCat extends service.Model {
     ref: 'GoodsCat',
     path: 'parent',
     title: 'Sub Categories'
+  }, {
+    ref: 'Goods',
+    path: 'cats'
   }];
 
   static fields = {

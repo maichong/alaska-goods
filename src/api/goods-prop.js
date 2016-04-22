@@ -4,19 +4,12 @@
  * @author Liang <liang@maichong.it>
  */
 
-export async function list(ctx, next) {
-  let filters = ctx.query.filters || {};
-  if (typeof filters === 'string') {
-    try {
-      filters = JSON.parse(filters);
-    } catch (e) {
-      filters = {};
-    }
-  }
+export function list(ctx, next) {
+  let filters = ctx.state.filters || ctx.query.filters || {};
   filters.activated = true;
   if (service.util.isObjectId(ctx.query.cat)) {
     filters.catsIndex = ctx.query.cat;
   }
-  ctx.query.filters = filters;
-  await next();
+  ctx.state.filters = filters;
+  return next();
 }

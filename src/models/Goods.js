@@ -13,7 +13,7 @@ import GoodsCat from './GoodsCat';
 export default class Goods extends service.Model {
 
   static label = 'Goods';
-  static defaultColumns = 'pic,title,cat,price,inventory,activated,sort,createdAt';
+  static defaultColumns = 'pic,title,cat,cats,price,inventory,activated,sort,createdAt';
   static defaultSort = '-sort';
   static searchFields = 'title';
   static api = {
@@ -67,8 +67,8 @@ export default class Goods extends service.Model {
     cats: {
       label: 'Categories',
       type: [GoodsCat],
-      hidden: true,
-      private: true
+      private: true,
+      static: true
     },
     currency: {
       label: 'Currency',
