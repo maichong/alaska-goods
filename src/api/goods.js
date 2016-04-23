@@ -8,9 +8,11 @@ const Goods = service.model('Goods');
 
 export function list(ctx, next) {
   let cid = ctx.query.cid || '';
-  ctx.state.filters = {
-    cats: cid
-  };
+  let filters = ctx.state.filters || ctx.query.filters || {};
+  if (cid) {
+    filters.cats = cid;
+  }
+  ctx.state.filters = filters;
   return next();
 }
 

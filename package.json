@@ -1,7 +1,11 @@
 {
   "name": "alaska-goods",
-  "version": "0.8.9",
+  "version": "0.8.10",
   "description": "Alaska goods service",
+  "keywords": [
+    "alaska",
+    "alaska-service"
+  ],
   "main": "lib/alaska-goods.js",
   "scripts": {
     "build": "babel ./src --out-dir ./lib",
