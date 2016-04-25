@@ -14,7 +14,6 @@ export const views = {
   GoodsPropsValueEditor: __dirname + '/views/GoodsPropsValueEditor',
 };
 
-
 /**
  * @class GoodsService
  */

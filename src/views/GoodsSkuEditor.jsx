@@ -71,9 +71,7 @@ function updateValue(value, goodsProps, goodsPropsMap) {
     return res;
   }, {});
   value.forEach(v => {
-    if (!v.key) {
-      return;
-    }
+    if (!v.key) return;
     if (skuMap[v.key]) {
       //如果sku记录在允许中
       v.valid = true;

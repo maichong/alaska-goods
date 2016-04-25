@@ -29,15 +29,13 @@ class GoodsPropsValueEditor extends React.Component {
     }
   };
 
-  handleChange = (event)=> {
+  handleChange = (event) => {
     this.setState({ value: event.target.value });
   };
 
-  handleSave = ()=> {
+  handleSave = () => {
     let value = this.state.value.trim();
-    if (!value) {
-      return;
-    }
+    if (!value) return;
     this.setState({ value: '' });
     this.props.actions.save({
       service: 'alaska-goods',

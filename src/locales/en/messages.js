@@ -34,4 +34,5 @@ export default {
   Multi: 'Multi',
   Filter: 'Filter',
   Input: 'Input',
+  Values: 'Values'
 };

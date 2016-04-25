@@ -53,9 +53,7 @@ export default class GoodsPropsEditor extends React.Component {
 
   fetchProps = (cat) => {
     cat = cat || this.props.data.cat;
-    if (this._cat == cat) {
-      return;
-    }
+    if (this._cat == cat) return;
     this._cat = cat;
     api.get(this.state.service.prefix + '/api/goods-prop?cat=' + cat).then(res => {
       let map = {};

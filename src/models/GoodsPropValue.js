@@ -9,7 +9,7 @@ import GoodsProp from './GoodsProp';
 export default class GoodsPropValue extends service.Model {
 
   static label = 'Property Values';
-  static defaultColumns = 'title,prop,sort,createdAt';
+  static defaultColumns = 'title prop sort createdAt';
   static defaultSort = '-sort -createdAt';
 
   static fields = {
@@ -62,9 +62,7 @@ export default class GoodsPropValue extends service.Model {
    */
   async processProp() {
     let prop = await GoodsProp.findById(this.prop);
-    if (!prop) {
-      return;
-    }
+    if (!prop) return;
     let values = await GoodsPropValue.find({
       prop: prop._id
     });

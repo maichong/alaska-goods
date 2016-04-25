@@ -14,22 +14,26 @@ import _ from 'lodash';
 export default class GoodsProp extends service.Model {
 
   static label = 'Goods Properties';
-  static defaultColumns = 'title,required,multi,sku,filter,input,activated,sort,createdAt';
+  static defaultColumns = 'title required multi sku filter input activated sort createdAt';
   static defaultSort = '-sort';
   static searchFields = 'title';
-  static populations = [{
-    path: 'values',
-    select: 'title'
-  }];
 
   static api = {
     list: 1
   };
 
-  static relationships = [{
-    ref: 'GoodsPropValue',
-    path: 'prop'
-  }];
+  static populations = {
+    values: {
+      select: 'title'
+    }
+  };
+
+  static relationships = {
+    values: {
+      ref: 'GoodsPropValue',
+      path: 'prop'
+    }
+  };
 
   static groups = {
     editor: {
@@ -49,7 +53,7 @@ export default class GoodsProp extends service.Model {
       private: true
     },
     catsIndex: {
-      label: 'Categories Index',
+      label: 'Categories',
       type: [GoodsCat],
       index: true,
       hidden: true,
@@ -106,7 +110,8 @@ export default class GoodsProp extends service.Model {
       view: 'GoodsPropsValueEditor',
       private: true,
       group: 'editor',
-      depends: '_id'
+      depends: '_id',
+      filter: false
     }
   };
 

@@ -8,21 +8,25 @@ import _ from 'lodash';
 
 export default class GoodsCat extends service.Model {
   static label = 'Goods Category';
-  static defaultColumns = '_id,title,parent,sort,createdAt';
+  static defaultColumns = '_id title parent sort createdAt';
   static defaultSort = '-sort';
   static searchFields = 'title';
+
   static api = {
     list: 1
   };
 
-  static relationships = [{
-    ref: 'GoodsCat',
-    path: 'parent',
-    title: 'Sub Categories'
-  }, {
-    ref: 'Goods',
-    path: 'cats'
-  }];
+  static relationships = {
+    subs: {
+      ref: 'GoodsCat',
+      path: 'parent',
+      title: 'Sub Categories'
+    },
+    goods: {
+      ref: 'Goods',
+      path: 'cats'
+    }
+  };
 
   static fields = {
     title: {

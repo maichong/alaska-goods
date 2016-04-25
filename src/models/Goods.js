@@ -13,24 +13,32 @@ import GoodsCat from './GoodsCat';
 export default class Goods extends service.Model {
 
   static label = 'Goods';
-  static defaultColumns = 'pic,title,cat,cats,price,inventory,activated,sort,createdAt';
+  static defaultColumns = 'pic title cat cats price inventory activated sort createdAt';
   static defaultSort = '-sort';
   static searchFields = 'title';
+
   static api = {
     list: 1,
     show: 1
   };
+
   static defaultFilters = {
     activated: true
   };
-  static populations = [{
-    path: 'skus',
-    match: {
-      inventory: { $gt: 0 },
-      valid: true
-    },
-    nolist: true
-  }];
+
+  static populations = {
+    skus: {
+      match: {
+        inventory: { $gt: 0 },
+        valid: true
+      }
+    }
+  };
+
+  static scopes = {
+    list: 'title pic price discount inventory'
+  };
+
   static groups = {
     price: 'Price',
     inventory: 'Inventory',

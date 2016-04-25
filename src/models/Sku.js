@@ -7,7 +7,7 @@
 export default class Sku extends service.Model {
 
   static label = 'Sku';
-  static defaultColumns = 'pic,goods,desc,inventory,price,valid';
+  static defaultColumns = 'pic goods desc inventory price valid';
   static defaultSort = '-sort';
   static noedit = true;
   static noremove = true;
