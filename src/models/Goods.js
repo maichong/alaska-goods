@@ -36,7 +36,7 @@ export default class Goods extends service.Model {
   };
 
   static scopes = {
-    list: 'title pic price discount inventory'
+    list: 'title pic price discount inventory skus'
   };
 
   static groups = {
