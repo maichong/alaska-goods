@@ -20,9 +20,16 @@ export const views = {
 export default class GoodsService extends alaska.Service {
   constructor(options, alaska) {
     options = options || {};
-    options.id = 'alaska-goods';
-    options.dir = __dirname;
+    options.dir = options.dir || __dirname;
+    options.id = options.id || 'alaska-goods';
     super(options, alaska);
+  }
+
+  preLoadConfig() {
+    let ORDER = this.alaska.service('alaska-order', true);
+    if (ORDER) {
+      ORDER.addConfigDir(__dirname + '/config/alaska-order');
+    }
   }
 
   /**

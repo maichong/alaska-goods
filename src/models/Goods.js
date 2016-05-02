@@ -36,7 +36,7 @@ export default class Goods extends service.Model {
   };
 
   static scopes = {
-    list: 'title pic price discount inventory'
+    list: 'title pic price discount inventory sku'
   };
 
   static groups = {
@@ -110,6 +110,12 @@ export default class Goods extends service.Model {
       type: Date,
       group: 'price'
     },
+    shipping: {
+      label: 'Shipping',
+      type: Number,
+      group: 'price',
+      default: 0
+    },
     inventory: {
       label: 'Inventory',
       type: Number,
@@ -167,6 +173,13 @@ export default class Goods extends service.Model {
       group: 'desc',
       fullWidth: true,
       nolabel: true
+    }
+  };
+
+  static virtuals = {
+    get discountValid() {
+      let now = new Date;
+      return this.discount > 0 && this.discountStartAt < now && this.discountEndAt > now;
     }
   };
 
