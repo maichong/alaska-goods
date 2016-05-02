@@ -36,7 +36,7 @@ export default class Goods extends service.Model {
   };
 
   static scopes = {
-    list: 'title pic price discount inventory sku'
+    list: 'title pic price discount inventory hasSku _skus'
   };
 
   static groups = {
@@ -180,6 +180,9 @@ export default class Goods extends service.Model {
     get discountValid() {
       let now = new Date;
       return this.discount > 0 && this.discountStartAt < now && this.discountEndAt > now;
+    },
+    get hasSku() {
+      return this.skus && this.skus.length > 0;
     }
   };
 
