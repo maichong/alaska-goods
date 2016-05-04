@@ -70,6 +70,7 @@ export async function pre() {
     let order = _.find(orders, o => o.type === 'goods' && o.canAppendItem(item));
     if (order) {
       item.order = order._id;
+      order.items.push(item);
     } else {
       order = new Order({
         title: item.title,
