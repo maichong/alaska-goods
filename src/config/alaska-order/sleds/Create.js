@@ -47,6 +47,7 @@ export async function pre() {
       if (!sku || !sku.inventory) service.error('Goods have been sold out');
       item.price = sku.price;
       item.discount = discountValid ? sku.discount : 0;
+      item.skuDesc = sku.desc;
       if (sku.pic) {
         item.pic = sku.pic;
       }
