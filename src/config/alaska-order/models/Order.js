@@ -5,5 +5,5 @@
  */
 
 export default function (Order) {
-  Order.fields.type.options.push({ label: 'Goods', type: 'goods' });
+  Order.fields.type.options.push({ label: 'Goods', value: 'goods' });
 }

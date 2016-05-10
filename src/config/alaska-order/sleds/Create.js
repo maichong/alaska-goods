@@ -69,7 +69,6 @@ export async function pre() {
   orderItems.forEach(item => {
     let order = _.find(orders, o => o.type === 'goods' && o.canAppendItem(item));
     if (order) {
-      item.order = order._id;
       order.items.push(item);
     } else {
       order = new Order({
@@ -83,6 +82,7 @@ export async function pre() {
       order.items = [item];
       orders.push(order);
     }
+    item.order = order._id;
   });
 
   //计算订单价格
@@ -100,4 +100,11 @@ export async function pre() {
     order.total = total;
     order.pay = shipping + total;
   });
+}
+
+export async function post() {
+  let orders = this.data.orders;
+  for (let order of orders) {
+    //TODO 减少商品库存
+  }
 }
