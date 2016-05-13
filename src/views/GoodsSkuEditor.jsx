@@ -8,10 +8,13 @@ import React from 'react';
 
 import '../../goods.less';
 
+import Modal from 'react-bootstrap/lib/Modal';
+
 import _forEach from 'lodash/forEach';
 import _reduce from 'lodash/reduce';
 import _find from 'lodash/find';
 import _values from 'lodash/values';
+import _map from 'lodash/map';
 
 /**
  * @param value
@@ -132,7 +135,9 @@ export default class GoodsSkuEditor extends React.Component {
     super(props);
     this.state = {
       goodsProps: props.data.props,
-      goodsPropsMap: createPropsMap(props.data.props)
+      goodsPropsMap: createPropsMap(props.data.props),
+      picPicker: false,
+      pics: []
     };
     this.state.value = updateValue(props.value, this.state.goodsProps, this.state.goodsPropsMap);
     this._trCache = {};
@@ -153,12 +158,42 @@ export default class GoodsSkuEditor extends React.Component {
   }
 
   shouldComponentUpdate(props, state) {
-    return state.value !== this.state.value;
+    return state.value !== this.state.value || state.picPicker !== this.state.picPicker;
   }
+
+  handlePic = (event) => {
+    const data = this.props.data;
+    this._skuIndex = parseInt(event.target.dataset.index);
+    let pics = [data.pic].concat(data.pics);
+    this.setState({
+      picPicker: true,
+      pics
+    });
+    //console.log(this.state.value[index]);
+    //console.log('pics', pics);
+  };
+
+  selectPicture = pic => () => {
+    console.log(pic);
+    const value = this.state.value;
+    const newValue = [];
+    value.forEach((sku, index)=> {
+      if (index == this._skuIndex) {
+        sku.pic = pic;
+      }
+      newValue.push(sku);
+    });
+    this._trCache = {};
+    this.setState({ value: newValue, picPicker: false });
+  };
+
+  closePicker = ()=> {
+    this.setState({ picPicker: false });
+  };
 
   render() {
     //let { value } = this.props;
-    let { value } = this.state;
+    const { value, pics, picPicker } = this.state;
     const t = this.context.t;
 
     let content;
@@ -203,7 +238,7 @@ export default class GoodsSkuEditor extends React.Component {
         let pic = s.pic || this.props.data.pic;
         trCache[s.key] = (
           <tr key={index} className={className}>
-            <td><img src={pic.thumbUrl}/></td>
+            <td className="sku-pic-field"><img src={pic.thumbUrl} onClick={this.handlePic} data-index={index}/></td>
             <td className="desc" dangerouslySetInnerHTML={{__html: s.desc.replace(/\|/g,'<br/>')}}/>
             <td><input type="number" disabled={disabled} value={s.inventory} onChange={onChangeInventory}/></td>
             <td><input type="number" disabled={disabled} value={s.price} onChange={onChangePrice}/></td>
@@ -231,11 +266,16 @@ export default class GoodsSkuEditor extends React.Component {
     } else {
       content = <p className="text-center">请首先选择SKU相关属性</p>;
     }
-
     return (
       <div className="panel panel-default">
         <div className="panel-heading">SKU</div>
         {content}
+        <Modal show={picPicker} onHide={this.closePicker}>
+          <Modal.Header>{t('Select picture')}</Modal.Header>
+          <Modal.Body className="sku-pic-picker">
+            {_map(pics, (pic, index)=><img src={pic.thumbUrl} key={index} onClick={this.selectPicture(pic)}/>)}
+          </Modal.Body>
+        </Modal>
       </div>
     );
   }
