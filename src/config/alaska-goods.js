@@ -8,7 +8,7 @@ export default {
   prefix: '/goods',
   controllers: false,
   middlewares: false,
-  services: [
-    { id: 'alaska-balance', alias: 'balance' }
-  ]
+  services: {
+    'alaska-balance': {}
+  }
 };

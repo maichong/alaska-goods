@@ -4,7 +4,9 @@
  * @author Liang <liang@maichong.it>
  */
 
-const Goods = service.model('Goods');
+import alaska from 'alaska';
+import service from '../';
+import Goods from '../models/Goods';
 
 export function list(ctx, next) {
   let cid = ctx.query.cid || '';

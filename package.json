@@ -1,16 +1,16 @@
 {
   "name": "alaska-goods",
-  "version": "0.9.5",
+  "version": "0.10.0",
   "description": "Alaska goods service",
   "keywords": [
     "alaska",
     "alaska-service"
   ],
-  "main": "lib/alaska-goods.js",
+  "main": "index.js",
   "scripts": {
-    "build": "babel ./src --out-dir ./lib",
-    "watch": "babel ./src --out-dir ./lib -w",
-    "prebuild": "rimraf lib",
+    "build": "babel ./src --out-dir ./",
+    "watch": "babel ./src --out-dir ./ -w",
+    "prebuild": "rimraf lib api controllers config locales middlewares models sleds views",
     "prepublish": "npm run build"
   },
   "repository": {
@@ -28,9 +28,9 @@
   },
   "homepage": "https://github.com/maichong/alaska-goods#readme",
   "dependencies": {
-    "alaska-balance": "^0.9.3",
-    "alaska-field-html": "^0.9.0",
-    "alaska-field-select": "^0.9.1",
-    "alaska-field-mixed": "^0.9.0"
+    "alaska-balance": "^0.10.0",
+    "alaska-field-html": "^0.10.0",
+    "alaska-field-select": "^0.10.0",
+    "alaska-field-mixed": "^0.10.0"
   }
 }

@@ -5,14 +5,16 @@
  */
 
 import _ from 'lodash';
+import alaska from 'alaska';
+import BALANCE from 'alaska-balance';
+import GOODS from 'alaska-goods';
+import Goods from 'alaska-goods/models/Goods';
+import Sku from 'alaska-goods/models/Sku';
+import ORDER from 'alaska-order';
+import Order from 'alaska-order/models/Order';
+import OrderItem from 'alaska-order/models/OrderItem';
 
-const BALANCE = alaska.service('alaska-balance');
 const currenciesMap = BALANCE.currenciesMap;
-const GOODS = alaska.service('alaska-goods');
-const Goods = GOODS.model('Goods');
-const Sku = GOODS.model('Sku');
-const Order = service.model('Order');
-const OrderItem = service.model('OrderItem');
 
 export async function pre() {
   let data = this.data;
@@ -28,7 +30,7 @@ export async function pre() {
     if (!g.id) continue;
     let goods = await Goods.findById(g.id);
     if (!goods) continue;
-    if (!goods.activated) service.error('Goods is not activated');
+    if (!goods.activated) ORDER.error('Goods is not activated');
     let discountValid = goods.discountValid;
     let item = new OrderItem({
       pic: goods.pic,
@@ -44,7 +46,7 @@ export async function pre() {
     //如果选择了SKU
     if (g.sku) {
       sku = await Sku.findById(g.sku).where('goods', goods._id);
-      if (!sku || !sku.inventory) service.error('Goods have been sold out');
+      if (!sku || !sku.inventory) ORDER.error('Goods have been sold out');
       item.price = sku.price;
       item.discount = discountValid ? sku.discount : 0;
       item.skuDesc = sku.desc;
@@ -53,9 +55,9 @@ export async function pre() {
       }
     }
     //如果没有选择SKU,但是商品却又有SKU设置
-    else if (goods.skus && goods.skus.length) service.error('Please select goods props');
+    else if (goods.skus && goods.skus.length) ORDER.error('Please select goods props');
     //没有库存
-    else if (!goods.inventory) service.error('Goods have been sold out');
+    else if (!goods.inventory) ORDER.error('Goods have been sold out');
     else {
       //没有指定SKU的商品
     }

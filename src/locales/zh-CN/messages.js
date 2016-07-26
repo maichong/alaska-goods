@@ -38,5 +38,7 @@ export default {
   'This message will display in the goods editor.': '这句话将显示在商品编辑页面.',
   'Select goods category first!': '请首先选择商品分类!',
   Shipping: '运费',
-  'Select picture': '选择图片'
+  'Select picture': '选择图片',
+  Initial: '首字母',
+  Brand: '品牌'
 };

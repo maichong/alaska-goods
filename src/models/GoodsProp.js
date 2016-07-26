@@ -4,16 +4,19 @@
  * @author Liang <liang@maichong.it>
  */
 
-import GoodsCat from './GoodsCat';
 import _ from 'lodash';
+import alaska from 'alaska';
+import service from '../';
+import GoodsCat from './GoodsCat';
 
 /**
  * @class GoodsProp
  * @extends Model
  */
-export default class GoodsProp extends service.Model {
+export default class GoodsProp extends alaska.Model {
 
   static label = 'Goods Properties';
+  static icon = 'th';
   static defaultColumns = 'title required multi sku filter input activated sort createdAt';
   static defaultSort = '-sort';
   static searchFields = 'title';
@@ -49,7 +52,7 @@ export default class GoodsProp extends service.Model {
     },
     cats: {
       label: 'Categories',
-      type: [GoodsCat],
+      type: ['GoodsCat'],
       private: true
     },
     catsIndex: {
@@ -111,7 +114,8 @@ export default class GoodsProp extends service.Model {
       private: true,
       group: 'editor',
       depends: '_id',
-      filter: false
+      filter: false,
+      cell: false
     }
   };
 
@@ -137,8 +141,7 @@ export default class GoodsProp extends service.Model {
   async updateCatsIndex() {
     if (this.cats.length) {
       let cats = {};
-      for (let i in this.cats) {
-        let cid = this.cats[i];
+      for (let cid of this.cats) {
         if (cats[cid]) {
           continue;
         }

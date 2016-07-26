@@ -4,15 +4,16 @@
  * @author Liang <liang@maichong.it>
  */
 
-const BALANCE = alaska.service('alaska-balance');
-
 import _ from 'lodash';
+import alaska from 'alaska';
+import BALANCE from 'alaska-balance';
 import Sku from './Sku';
 import GoodsCat from './GoodsCat';
 
-export default class Goods extends service.Model {
+export default class Goods extends alaska.Model {
 
   static label = 'Goods';
+  static icon = 'gift';
   static defaultColumns = 'pic title cat cats price inventory activated sort createdAt';
   static defaultSort = '-sort';
   static searchFields = 'title';
@@ -47,7 +48,10 @@ export default class Goods extends service.Model {
       title: 'SKU',
       panel: false
     },
-    desc: 'Description',
+    desc: {
+      title: 'Description',
+      className: 'panel-html-editor'
+    }
   };
 
   static fields = {
@@ -77,6 +81,11 @@ export default class Goods extends service.Model {
       type: [GoodsCat],
       private: true,
       static: true
+    },
+    brand: {
+      label: 'Brand',
+      ref: 'Brand',
+      index: true
     },
     currency: {
       label: 'Currency',
@@ -171,7 +180,7 @@ export default class Goods extends service.Model {
       type: 'html',
       default: '',
       group: 'desc',
-      fullWidth: true,
+      horizontal: false,
       nolabel: true
     }
   };
@@ -207,7 +216,7 @@ export default class Goods extends service.Model {
       _.each(this.props, prop => {
         if (prop.filter) {
           _.each(prop.values, value => {
-            if (service.util.isObjectId(value.value)) {
+            if (alaska.util.isObjectId(value.value)) {
               propValues.push(value.value);
             }
           });

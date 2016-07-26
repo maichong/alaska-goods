@@ -4,9 +4,12 @@
  * @author Liang <liang@maichong.it>
  */
 
-export default class Sku extends service.Model {
+import alaska from 'alaska';
+
+export default class Sku extends alaska.Model {
 
   static label = 'Sku';
+  static icon = 'cubes';
   static defaultColumns = 'pic goods desc inventory price valid';
   static defaultSort = '-sort';
   static noedit = true;

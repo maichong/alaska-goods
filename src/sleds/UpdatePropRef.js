@@ -4,13 +4,14 @@
  * @author Liang <liang@maichong.it>
  */
 
+import alaska from 'alaska';
 import GoodsCat from '../models/GoodsCat';
 import GoodsProp from '../models/GoodsProp';
 
 /**
  * 更新分类属性关联关系
  */
-export default class UpdatePropRef extends service.Sled {
+export default class UpdatePropRef extends alaska.Sled {
 
   /**
    * @param {string|ObjectId} data.cat 分类ID

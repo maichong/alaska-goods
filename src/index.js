@@ -4,8 +4,6 @@
  * @author Liang <liang@maichong.it>
  */
 
-'use strict';
-
 import alaska from 'alaska';
 
 export const views = {
@@ -17,7 +15,7 @@ export const views = {
 /**
  * @class GoodsService
  */
-export default class GoodsService extends alaska.Service {
+class GoodsService extends alaska.Service {
   constructor(options, alaska) {
     options = options || {};
     options.dir = options.dir || __dirname;
@@ -26,7 +24,7 @@ export default class GoodsService extends alaska.Service {
   }
 
   preLoadConfig() {
-    let ORDER = this.alaska.service('alaska-order', true);
+    let ORDER = alaska.service('alaska-order', true);
     if (ORDER) {
       ORDER.addConfigDir(__dirname + '/config/alaska-order');
     }
@@ -77,3 +75,5 @@ export default class GoodsService extends alaska.Service {
     }
   }
 }
+
+export default new GoodsService();

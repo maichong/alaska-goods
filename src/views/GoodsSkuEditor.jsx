@@ -6,7 +6,7 @@
 
 import React from 'react';
 
-import '../../goods.less';
+import '../goods.less';
 
 import Modal from 'react-bootstrap/lib/Modal';
 

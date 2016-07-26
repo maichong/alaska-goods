@@ -5,9 +5,12 @@
  */
 
 import _ from 'lodash';
+import alaska from 'alaska';
+import service from '../';
 
-export default class GoodsCat extends service.Model {
+export default class GoodsCat extends alaska.Model {
   static label = 'Goods Category';
+  static icon = 'th-list';
   static defaultColumns = '_id title parent sort createdAt';
   static defaultSort = '-sort';
   static searchFields = 'title';

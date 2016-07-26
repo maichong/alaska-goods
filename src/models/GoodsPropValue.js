@@ -4,11 +4,13 @@
  * @author Liang <liang@maichong.it>
  */
 
+import alaska from 'alaska';
 import GoodsProp from './GoodsProp';
 
-export default class GoodsPropValue extends service.Model {
+export default class GoodsPropValue extends alaska.Model {
 
   static label = 'Property Values';
+  static icon = 'square';
   static defaultColumns = 'title prop sort createdAt';
   static defaultSort = '-sort -createdAt';
 

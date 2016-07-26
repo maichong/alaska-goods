@@ -4,10 +4,12 @@
  * @author Liang <liang@maichong.it>
  */
 
+import alaska from 'alaska';
+
 export function list(ctx, next) {
   let filters = ctx.state.filters || ctx.query.filters || {};
   filters.activated = true;
-  if (service.util.isObjectId(ctx.query.cat)) {
+  if (alaska.util.isObjectId(ctx.query.cat)) {
     filters.catsIndex = ctx.query.cat;
   }
   ctx.state.filters = filters;
