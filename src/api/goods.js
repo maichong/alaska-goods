@@ -27,7 +27,7 @@ export async function newest(ctx) {
   if (!results) {
     results = await Goods.find({ activated: true, cats: cid }).sort('-createdAt').limit(10);
     results = results.map(goods => goods.data().omit('desc', 'pics', 'skus', 'cat'));
-    cache.set(cacheKey, results, 3600);
+    cache.set(cacheKey, results, 600 * 1000);
   }
   ctx.body = results;
 }
@@ -41,7 +41,7 @@ export async function popular(ctx) {
   if (!results) {
     results = await Goods.find({ activated: true, cats: cid }).sort('-volume -sort').limit(10);
     results = results.map(goods => goods.data().omit('desc', 'pics', 'skus', 'cat'));
-    cache.set(cacheKey, results, 3600);
+    cache.set(cacheKey, results, 600 * 1000);
   }
   ctx.body = results;
 }
