@@ -73,8 +73,7 @@ export default class Goods extends alaska.Model {
     cat: {
       label: 'Category',
       ref: GoodsCat,
-      index: true,
-      required: true
+      index: true
     },
     cats: {
       label: 'Categories',

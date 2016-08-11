@@ -40,5 +40,8 @@ export default {
   Shipping: '运费',
   'Select picture': '选择图片',
   Initial: '首字母',
-  Brand: '品牌'
+  Brand: '品牌',
+  Common: '通用',
+  'Checkbox View': '选择框视图',
+  'Please input property value': '请输入属性值',
 };

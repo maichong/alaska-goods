@@ -4,14 +4,16 @@
  * @author Liang <liang@maichong.it>
  */
 
+import _ from 'lodash';
 import alaska from 'alaska';
+import GoodsCat from './GoodsCat';
 import GoodsProp from './GoodsProp';
 
 export default class GoodsPropValue extends alaska.Model {
 
   static label = 'Property Values';
   static icon = 'square';
-  static defaultColumns = 'title prop sort createdAt';
+  static defaultColumns = 'title prop common sort createdAt';
   static defaultSort = '-sort -createdAt';
 
   static fields = {
@@ -25,6 +27,22 @@ export default class GoodsPropValue extends alaska.Model {
       type: GoodsProp,
       index: true,
       required: true
+    },
+    cats: {
+      label: 'Categories',
+      type: [GoodsCat],
+      private: true,
+      disabled: 'common'
+    },
+    catsIndex: {
+      label: 'Categories',
+      type: [GoodsCat],
+      hidden: true
+    },
+    common: {
+      label: 'Common',
+      default: true,
+      type: Boolean
     },
     sort: {
       label: 'Sort',
@@ -49,6 +67,9 @@ export default class GoodsPropValue extends alaska.Model {
     if (count) {
       throw new Error('Reduplicate prop value title');
     }
+    if (this.isNew || this.isModified('cats') || this.isModified('common')) {
+      await this.updateCatsIndex();
+    }
   }
 
   postSave() {
@@ -72,4 +93,24 @@ export default class GoodsPropValue extends alaska.Model {
     await prop.save();
   }
 
+  /**
+   * 更新本属性值所对应分类的关联索引
+   */
+  async updateCatsIndex() {
+    if (!this.common && this.cats.length) {
+      let cats = {};
+      for (let cid of this.cats) {
+        if (cats[cid]) {
+          continue;
+        }
+        let cat = await GoodsCat.findCache(cid);
+        cats[cid] = cat;
+        let subs = await cat.allSubs();
+        _.defaults(cats, subs);
+      }
+      this.catsIndex = Object.keys(cats);
+    } else {
+      this.catsIndex = undefined;
+    }
+  }
 }

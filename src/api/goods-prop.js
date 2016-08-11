@@ -4,14 +4,37 @@
  * @author Liang <liang@maichong.it>
  */
 
-import alaska from 'alaska';
+import _ from 'lodash';
 
-export function list(ctx, next) {
+export async function list(ctx, next) {
   let filters = ctx.state.filters || ctx.query.filters || {};
+  let cat = ctx.state.cat || ctx.query.cat;
   filters.activated = true;
-  if (alaska.util.isObjectId(ctx.query.cat)) {
-    filters.catsIndex = ctx.query.cat;
+  if (cat) {
+    filters = {
+      $or: [
+        {
+          ...filters,
+          catsIndex: cat
+        },
+        {
+          ...filters,
+          common: true
+        }
+      ]
+    };
   }
   ctx.state.filters = filters;
-  return next();
+  await next();
+  if (cat) {
+    _.forEach(ctx.body.results, prop => {
+      prop.values = _.filter(prop.values, (value) => {
+        let record;
+        if (value.getRecord) {
+          record = value.getRecord();
+        }
+        return !record || record.common || !record.catsIndex || !record.catsIndex.length || record.catsIndex.indexOf(cat) > -1;
+      }, []);
+    });
+  }
 }

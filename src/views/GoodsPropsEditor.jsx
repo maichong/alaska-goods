@@ -5,23 +5,20 @@
  */
 
 import React from 'react';
-
 import { api } from 'alaska-admin-view';
-
 import Select from 'alaska-field-select/lib/Select';
-
+import Checkbox from 'alaska-field-select/lib/Checkbox';
 import _map from 'lodash/map';
+import _reduce from 'lodash/reduce';
 import _forEach from 'lodash/forEach';
+
+const { func, object } = React.PropTypes;
 
 export default class GoodsPropsEditor extends React.Component {
 
-  static propTypes = {
-    children: React.PropTypes.node
-  };
-
   static contextTypes = {
-    settings: React.PropTypes.object,
-    t: React.PropTypes.func,
+    settings: object,
+    t: func,
   };
 
   constructor(props, context) {
@@ -60,6 +57,12 @@ export default class GoodsPropsEditor extends React.Component {
       _forEach(res.results, prop => {
         map[prop.id] = prop;
         prop.options = _map(prop.values, v => ({ label: v.title, value: v.id }));
+        //prop.options = _reduce(prop.values, (res, v) => {
+        //  if (v.common || !v.catsIndex || !v.catsIndex.indexOf(cat)) {
+        //    
+        //  }
+        //  let opt = { label: v.title, value: v.id };
+        //}, []);
       });
       this.setState({
         goodsProps: res.results,
@@ -156,11 +159,13 @@ export default class GoodsPropsEditor extends React.Component {
         help += p.help;
       }
 
+      let View = p.checkbox && !p.input ? Checkbox : Select;
+
       list.push(
         <div className="form-group" key={index}>
           <label className="control-label col-xs-2">{p.title}</label>
           <div className="col-xs-10">
-            <Select
+            <View
               value={value}
               multi={p.multi}
               options={p.options}

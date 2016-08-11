@@ -17,7 +17,7 @@ export default class GoodsProp extends alaska.Model {
 
   static label = 'Goods Properties';
   static icon = 'th';
-  static defaultColumns = 'title required multi sku filter input activated sort createdAt';
+  static defaultColumns = 'title common required multi sku filter input activated sort createdAt';
   static defaultSort = '-sort';
   static searchFields = 'title';
 
@@ -27,7 +27,7 @@ export default class GoodsProp extends alaska.Model {
 
   static populations = {
     values: {
-      select: 'title'
+      select: 'title _common _catsIndex'
     }
   };
 
@@ -53,7 +53,8 @@ export default class GoodsProp extends alaska.Model {
     cats: {
       label: 'Categories',
       type: ['GoodsCat'],
-      private: true
+      private: true,
+      disabled: 'common'
     },
     catsIndex: {
       label: 'Categories',
@@ -61,6 +62,11 @@ export default class GoodsProp extends alaska.Model {
       index: true,
       hidden: true,
       private: true
+    },
+    common: {
+      label: 'Common',
+      default: false,
+      type: Boolean
     },
     required: {
       label: 'Required',
@@ -81,6 +87,11 @@ export default class GoodsProp extends alaska.Model {
     input: {
       label: 'Input',
       type: Boolean
+    },
+    checkbox: {
+      label: 'Checkbox View',
+      type: Boolean,
+      disabled: 'input'
     },
     sort: {
       label: 'Sort',
@@ -123,7 +134,7 @@ export default class GoodsProp extends alaska.Model {
     if (!this.createdAt) {
       this.createdAt = new Date;
     }
-    if (this.isNew || this.isModified('cats')) {
+    if (this.isNew || this.isModified('cats') || this.isModified('common')) {
       await this.updateCatsIndex();
     }
   }
@@ -139,7 +150,7 @@ export default class GoodsProp extends alaska.Model {
    * 更新本属性所对应分类的关联索引
    */
   async updateCatsIndex() {
-    if (this.cats.length) {
+    if (!this.common && this.cats.length) {
       let cats = {};
       for (let cid of this.cats) {
         if (cats[cid]) {
@@ -152,7 +163,7 @@ export default class GoodsProp extends alaska.Model {
       }
       this.catsIndex = Object.keys(cats);
     } else {
-      this.catsIndex = [];
+      this.catsIndex = undefined;
     }
   }
 }
