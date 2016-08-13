@@ -50,7 +50,7 @@ export default class Goods extends alaska.Model {
     },
     desc: {
       title: 'Description',
-      className: 'panel-html-editor'
+      className: 'noborder'
     }
   };
 

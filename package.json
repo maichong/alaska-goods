@@ -1,6 +1,6 @@
 {
   "name": "alaska-goods",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "description": "Alaska goods service",
   "keywords": [
     "alaska",
@@ -30,7 +30,7 @@
   "dependencies": {
     "alaska-balance": "^0.10.1",
     "alaska-field-html": "^0.10.0",
-    "alaska-field-select": "^0.10.0",
+    "alaska-field-select": "^0.10.1",
     "alaska-field-mixed": "^0.10.0"
   }
 }

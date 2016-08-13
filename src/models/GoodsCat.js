@@ -23,11 +23,13 @@ export default class GoodsCat extends alaska.Model {
     subs: {
       ref: 'GoodsCat',
       path: 'parent',
-      title: 'Sub Categories'
+      title: 'Sub Categories',
+      private: true
     },
     goods: {
       ref: 'Goods',
-      path: 'cats'
+      path: 'cats',
+      private: true
     }
   };
 

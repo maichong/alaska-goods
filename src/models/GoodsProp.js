@@ -34,7 +34,8 @@ export default class GoodsProp extends alaska.Model {
   static relationships = {
     values: {
       ref: 'GoodsPropValue',
-      path: 'prop'
+      path: 'prop',
+      private: true
     }
   };
 

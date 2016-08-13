@@ -5,9 +5,7 @@
  */
 
 import _ from 'lodash';
-import alaska from 'alaska';
 import BALANCE from 'alaska-balance';
-import GOODS from 'alaska-goods';
 import Goods from 'alaska-goods/models/Goods';
 import Sku from 'alaska-goods/models/Sku';
 import ORDER from 'alaska-order';
