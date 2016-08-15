@@ -43,5 +43,6 @@ export default {
   Brand: '品牌',
   Common: '通用',
   'Checkbox View': '选择框视图',
+  'Switch View': '按钮组视图',
   'Please input property value': '请输入属性值',
 };

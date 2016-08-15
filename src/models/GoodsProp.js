@@ -94,6 +94,11 @@ export default class GoodsProp extends alaska.Model {
       type: Boolean,
       disabled: 'input'
     },
+    switch: {
+      label: 'Switch View',
+      type: Boolean,
+      disabled: 'input'
+    },
     sort: {
       label: 'Sort',
       type: Number,

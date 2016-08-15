@@ -16,11 +16,11 @@ export const views = {
  * @class GoodsService
  */
 class GoodsService extends alaska.Service {
-  constructor(options, alaska) {
+  constructor(options) {
     options = options || {};
     options.dir = options.dir || __dirname;
     options.id = options.id || 'alaska-goods';
-    super(options, alaska);
+    super(options);
   }
 
   preLoadConfig() {

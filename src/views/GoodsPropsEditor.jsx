@@ -8,6 +8,7 @@ import React from 'react';
 import { api } from 'alaska-admin-view';
 import Select from 'alaska-field-select/lib/Select';
 import Checkbox from 'alaska-field-select/lib/Checkbox';
+import Switch from 'alaska-field-select/lib/Switch';
 import _map from 'lodash/map';
 import _reduce from 'lodash/reduce';
 import _forEach from 'lodash/forEach';
@@ -159,7 +160,12 @@ export default class GoodsPropsEditor extends React.Component {
         help += p.help;
       }
 
-      let View = p.checkbox && !p.input ? Checkbox : Select;
+      let View = Select;
+      if (!p.input && p.checkbox) {
+        View = Checkbox;
+      } else if (!p.input && p.switch) {
+        View = Switch;
+      }
 
       list.push(
         <div className="form-group" key={index}>
