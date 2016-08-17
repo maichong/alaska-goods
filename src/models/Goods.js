@@ -23,8 +23,11 @@ export default class Goods extends alaska.Model {
     show: 1
   };
 
-  static defaultFilters = {
-    activated: true
+  static defaultFilters = ctx => {
+    if (ctx.service.id === 'alaska-admin') return null;
+    return {
+      activated: true
+    };
   };
 
   static populations = {
