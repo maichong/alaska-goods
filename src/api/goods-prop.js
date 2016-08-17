@@ -33,7 +33,7 @@ export async function list(ctx, next) {
         if (value.getRecord) {
           record = value.getRecord();
         }
-        return !record || record.common || !record.catsIndex || !record.catsIndex.length || record.catsIndex.indexOf(cat) > -1;
+        return !record || record.common || (record.catsIndex && record.catsIndex.indexOf(cat) > -1);
       }, []);
     });
   }
