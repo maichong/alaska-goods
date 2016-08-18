@@ -53,7 +53,9 @@ export default class GoodsProp extends alaska.Model {
     },
     cats: {
       label: 'Categories',
-      type: ['GoodsCat'],
+      type: 'category',
+      ref: 'GoodsCat',
+      multi: true,
       private: true,
       disabled: 'common'
     },

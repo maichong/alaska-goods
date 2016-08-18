@@ -41,7 +41,7 @@ export default class GoodsCat extends alaska.Model {
     },
     parent: {
       label: 'Parent Category',
-      type: 'relationship',
+      type: 'category',
       ref: 'GoodsCat',
       index: true
     },
