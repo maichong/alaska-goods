@@ -98,7 +98,7 @@ export default class GoodsPropValue extends alaska.Model {
    * 更新本属性值所对应分类的关联索引
    */
   async updateCatsIndex() {
-    if (!this.common && this.cats.length) {
+    if (!this.common && this.cats && this.cats.length) {
       let cats = {};
       for (let cid of this.cats) {
         if (cats[cid]) {
