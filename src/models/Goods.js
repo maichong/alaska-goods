@@ -63,6 +63,10 @@ export default class Goods extends alaska.Model {
       type: String,
       required: true
     },
+    brief: {
+      label: 'Brief',
+      type: String
+    },
     pic: {
       label: 'Main Picture',
       type: 'image',
@@ -89,6 +93,29 @@ export default class Goods extends alaska.Model {
       label: 'Brand',
       ref: 'Brand',
       index: true
+    },
+    newGoods: {
+      label: 'Is New Goods',
+      type: Boolean
+    },
+    hotGoods: {
+      label: 'Is Hot Goods',
+      type: Boolean
+    },
+    seoTitle: {
+      label: 'SEO Title',
+      type: String,
+      default: ''
+    },
+    seoKeywords: {
+      label: 'SEO Keywords',
+      type: String,
+      default: ''
+    },
+    seoDescription: {
+      label: 'SEO Description',
+      type: String,
+      default: ''
     },
     currency: {
       label: 'Currency',

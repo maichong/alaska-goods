@@ -11,7 +11,7 @@ import service from '../';
 export default class GoodsCat extends alaska.Model {
   static label = 'Goods Category';
   static icon = 'th-list';
-  static defaultColumns = '_id title parent sort createdAt';
+  static defaultColumns = '_id icon pic title parent sort createdAt';
   static defaultSort = '-sort';
   static searchFields = 'title';
 
@@ -38,6 +38,18 @@ export default class GoodsCat extends alaska.Model {
       label: 'Title',
       type: String,
       required: true
+    },
+    icon: {
+      label: 'Icon',
+      type: 'image',
+    },
+    pic: {
+      label: 'Banner',
+      type: 'image'
+    },
+    desc: {
+      label: 'Description',
+      type: String
     },
     parent: {
       label: 'Parent Category',

@@ -1,6 +1,6 @@
 {
   "name": "alaska-goods",
-  "version": "0.10.8",
+  "version": "0.10.9",
   "description": "Alaska goods service",
   "keywords": [
     "alaska",
@@ -28,9 +28,9 @@
   },
   "homepage": "https://github.com/maichong/alaska-goods#readme",
   "dependencies": {
-    "alaska-balance": "^0.10.1",
+    "alaska-balance": "^0.10.2",
     "alaska-field-html": "^0.10.1",
-    "alaska-field-select": "^0.10.3",
+    "alaska-field-select": "^0.10.4",
     "alaska-field-category": "^0.10.0",
     "alaska-field-mixed": "^0.10.1"
   }

@@ -45,4 +45,12 @@ export default {
   'Checkbox View': '选择框视图',
   'Switch View': '按钮组视图',
   'Please input property value': '请输入属性值',
+  'Is New Goods': '新品',
+  'SEO Title': 'SEO标题',
+  'SEO Keywords': 'SEO关键字',
+  'SEO Description': 'SEO描述',
+  Special: '专题',
+  'Goods List': '商品列表',
+  Brief: '简介',
+  'Is Hot Goods': '热门'
 };
